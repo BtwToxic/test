@@ -4,10 +4,8 @@ services:
     container_name: redroid5555
     privileged: true
     restart: unless-stopped
-    cpus: "2.0"
-    mem_limit: 4g
     volumes:
-      - ${HOME}/data/redroid5555:/data
+      - \${HOME}/data/redroid5555:/data
     ports:
       - "5559:5555"
     environment:
@@ -15,15 +13,9 @@ services:
       - androidboot.redroid_height=2340
       - androidboot.redroid_dpi=434
       - androidboot.redroid_fps=60
-      - androidboot.redroid_gfx_mode=auto
-      - androidboot.redroid_hwcomposer=force
       - androidboot.redroid_gpu_mode=guest
-      - androidboot.adb_tcp_port=5555
       - androidboot.selinux=permissive
-    stdin_open: true
-    tty: true
     devices:
       - /dev/binder:/dev/binder
       - /dev/hwbinder:/dev/hwbinder
       - /dev/vndbinder:/dev/vndbinder
-      
