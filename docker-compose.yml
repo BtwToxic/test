@@ -1,7 +1,6 @@
-version: '3.8'
 services:
   redroid5555:
-    image: furtif/redroid:12.0.0-rooted
+    image: redroid/redroid:12.0.0-latest
     container_name: redroid5555
     privileged: true
     restart: unless-stopped
@@ -27,3 +26,4 @@ services:
       - /dev/binder:/dev/binder
       - /dev/hwbinder:/dev/hwbinder
       - /dev/vndbinder:/dev/vndbinder
+      
