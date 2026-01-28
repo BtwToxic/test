@@ -1,66 +1,56 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# --- CONFIGURATION (Yahan apni details daalo) ---
-API_ID = 21705136  # my.telegram.org se milega
-API_HASH = "78730e89d196e160b0f1992018c6cb19" # my.telegram.org se milega
-BOT_TOKEN = "8094733589:AAEsY2GFBeNkkwR3Yv9WAADHcvRaq7KgpJw" # BotFather se milega
+# --- CONFIGURATION ---
+API_ID = 21705136 
+API_HASH = "78730e89d196e160b0f1992018c6cb19"
+BOT_TOKEN = "8094733589:AAEsY2GFBeNkkwR3Yv9WAADHcvRaq7KgpJw"
 
 app = Client("my_test_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-# --- EFFECT IDS ---
-# Ye IDs Telegram ke server par fixed hoti hain
+# --- EFFECT IDS (Screen par aag/dil udne wala) ---
 EFFECTS = {
     "fire": 5104841245755180586,
     "heart": 5159385139981059251,
-    "thumbs_up": 5107584321108051014,
-    "party": 5046509860389126442
 }
 
 @app.on_message(filters.command("start"))
 async def start_command(client, message):
-    # Ye wo formatting hai jo tumne pehle puchi thi (Blue Quote Line)
-    text_message = (
+    # Niche dekho text me maine ek emoji ID lagayi hai.
+    # Ye ID kisi animated emoji ki hoti hai. 
+    # Aapko apni pasand ke animated emoji ki ID nikalni padegi.
+    
+    # Example Custom Emoji ID: 5465665476971471368 (Ye ek random animated emoji hai)
+    
+    txt = (
         "> **❝ TESTING BOT MODE ❞**\n"
-        "> **◉ SELECT AN EFFECT BELOW**\n"
-        "> **◉ CLICK BUTTON TO TEST** 🔥"
+        "> **◉ CHECK ANIMATION**\n"
+        "> **◉ RIGHT SIDE EMOJI ** <emoji id=5465665476971471368>👋</emoji>" 
     )
 
-    # Buttons banaye hain taaki click karke test kar sako
     buttons = InlineKeyboardMarkup([
-        [
-            InlineKeyboardButton("🔥 Fire Effect", callback_data="fire"),
-            InlineKeyboardButton("❤️ Heart Effect", callback_data="heart")
-        ],
-        [
-            InlineKeyboardButton("👍 Thumbs Up", callback_data="thumbs_up"),
-            InlineKeyboardButton("🎉 Party", callback_data="party")
-        ]
+        [InlineKeyboardButton("🔥 Test Fire Effect", callback_data="fire")],
+        [InlineKeyboardButton("❤️ Test Heart Effect", callback_data="heart")]
     ])
 
     await message.reply_text(
-        text=text_message,
+        text=txt,
         reply_markup=buttons
     )
 
-# Button click karne par ye chalega
 @app.on_callback_query()
 async def handle_callbacks(client, callback_query):
     effect_name = callback_query.data
-    
     if effect_name in EFFECTS:
-        effect_id = EFFECTS[effect_name]
-        
-        # Ye hai wo MAIN magic line jisse animation aati hai
-        await client.send_message(
-            chat_id=callback_query.message.chat.id,
-            text=f"Ye raha tumhara **{effect_name.upper()}** effect! ✨",
-            message_effect_id=effect_id  # <-- Yahan ID lagti hai
-        )
-        
-        await callback_query.answer("Effect Sent! Check chat.")
-    else:
-        await callback_query.answer("Unknown effect")
+        try:
+            await client.send_message(
+                chat_id=callback_query.message.chat.id,
+                text=f"Ye raha effect! ✨",
+                message_effect_id=EFFECTS[effect_name] # Ye tabhi chalega jab Pyrofork install hoga
+            )
+            await callback_query.answer("Sent!")
+        except Exception as e:
+            await callback_query.answer(f"Error: {e}", show_alert=True)
 
-print("Bot start ho gaya hai bhai! Telegram par /start bhejo.")
+print("Bot Started... Pyrofork install karna mat bhulna!")
 app.run()
