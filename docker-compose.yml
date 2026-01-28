@@ -10,7 +10,7 @@ services:
     volumes:
       - ${HOME}/data/redroid5555:/data
     ports:
-      - "5559:5555"     # External 5559 ? internal 5555
+      - "5559:5555"
     environment:
       - androidboot.redroid_width=1080
       - androidboot.redroid_height=2340
@@ -24,4 +24,6 @@ services:
     stdin_open: true
     tty: true
     devices:
-      - /dev/tty
+      - /dev/binder:/dev/binder
+      - /dev/hwbinder:/dev/hwbinder
+      - /dev/vndbinder:/dev/vndbinder
