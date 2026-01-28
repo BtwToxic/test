@@ -2,9 +2,9 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # --- CONFIGURATION (Yahan apni details daalo) ---
-API_ID = 12345678  # my.telegram.org se milega
-API_HASH = "yahan_apna_hash_daalo" # my.telegram.org se milega
-BOT_TOKEN = "123456:ABC-DEF..." # BotFather se milega
+API_ID = 21705136  # my.telegram.org se milega
+API_HASH = "78730e89d196e160b0f1992018c6cb19" # my.telegram.org se milega
+BOT_TOKEN = "8094733589:AAEsY2GFBeNkkwR3Yv9WAADHcvRaq7KgpJw" # BotFather se milega
 
 app = Client("my_test_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
